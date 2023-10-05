@@ -161,7 +161,7 @@ public class registro extends javax.swing.JFrame {
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         // TODO add your handling code here:
         persona a = new persona();
-        a.EscribirArchivo(tfDni.getText(), tfNombre.getText(), tfApellido.getText(), tfEdad.getText());
+        a.EscribirArchivo(tfDni.getText(), tfNombre.getText(), tfApellido.getText(), Integer.parseInt(tfEdad.getText()));
         
         tfDni.setText("");
         tfNombre.setText("");
