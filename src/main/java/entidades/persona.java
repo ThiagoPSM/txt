@@ -11,12 +11,12 @@ public class persona {
     private String dni;
     private String nombre;
     private String apellido;
-    private String edad;
+    private int edad;
 
     public persona() {
     }
 
-    public persona(String dni, String nombre, String apellido, String edad) {
+    public persona(String dni, String nombre, String apellido, int edad) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -47,16 +47,16 @@ public class persona {
         this.apellido = apellido;
     }
 
-    public String getEdad() {
+    public int getEdad() {
         return edad;
     }
 
-    public void setEdad(String edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
     
-    public void EscribirArchivo (String dni , String nombre, String apellido, String edad)
+    public void EscribirArchivo (String dni , String nombre, String apellido, int edad)
     {
         String cadenaDatos = "";
         cadenaDatos= dni +","+ nombre+","+apellido+","+edad; //estructura o modelo de como se va a guardar en el archivo
