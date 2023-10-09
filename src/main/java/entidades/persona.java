@@ -1,13 +1,16 @@
 package entidades;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.StringJoiner;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -130,6 +133,81 @@ public class persona {
             JOptionPane.showMessageDialog(null, "ocurrio un error" + e.getMessage());
         }
         
+    }
+    
+    public void seleccionarPersona(JTable tabla)
+    {
+        
+        
+        try
+        {
+            int fila = tabla.getSelectedRow();
+        
+        if(fila >= 0)
+        {
+            setDni(tabla.getValueAt(fila, 0).toString());
+            setNombre(tabla.getValueAt(fila, 1).toString());
+            setApellido(tabla.getValueAt(fila, 2).toString());
+            setEdad(tabla.getValueAt(fila, 3).toString());
+            
+        }
+       } catch (Exception e)
+       {
+           JOptionPane.showMessageDialog(null, "ocurrio un error " + e.getMessage());
+       }
+        
+        
+    }
+    
+    public void Eliminar(JTable tablaPersona, JTextField dni)
+    {
+        DefaultTableModel modelo =(DefaultTableModel)tablaPersona.getModel();      
+        for(int i =0; i< modelo.getRowCount(); i++)//recorre la tabla mientras i sea menor que la cantidad de columnas
+        {
+            if(((String)modelo.getValueAt(i, 0)).equals(dni.getText()))
+  /*de la tabla se obtienen los valores de la primer columna iterando y si es igual al dni de la persona seleccionada lo elimina 
+  *y sale del for */         
+            {
+                modelo.removeRow(i);
+                break;
+                //elimina visualmente 
+            }
+        }
+        
+        //limpieza del archivo
+        
+        try
+        {
+            PrintWriter wr = new PrintWriter("Personas.txt");
+            wr.print("");
+            wr.close();
+        }catch(Exception e)
+        {
+           JOptionPane.showMessageDialog(null,"Ocurrio un error " +e.getMessage() );
+        }
+        
+        //Creacion del nuevo registro luego de eliminar
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(new File("Personas.txt"))))
+        {
+           for(int fila=0 ; fila < tablaPersona.getRowCount(); fila++)
+           {
+               StringJoiner joiner = new StringJoiner(",");
+               
+               for(int col =0; col < tablaPersona.getColumnCount(); col++)
+               {
+                   Object obj = tablaPersona.getValueAt(fila, col);
+                   String value = obj == null ? "null" :obj.toString();
+                   joiner.add(value);
+               }
+               System.out.println(joiner.toString());
+               bw.write(joiner.toString());
+               bw.newLine();
+           }
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ocurrio un error " + e.getMessage());
+        }
+             
     }
     
    
