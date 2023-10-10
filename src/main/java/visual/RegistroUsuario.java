@@ -9,6 +9,7 @@ import entidades.Usuarios;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -95,6 +96,8 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
         try(FileWriter fw = new FileWriter(f, true)){
             fw.write(a.toCSV());
             System.out.println("Registrado");
+            JOptionPane.showMessageDialog(null, "Registrado");
+            this.dispose();
         }catch(Exception e){
             System.out.println("Error " + e.getMessage());
             
